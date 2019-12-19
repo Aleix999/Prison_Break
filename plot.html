@@ -24,8 +24,10 @@
         </nav>
         <a class="cta" href="#"><button>SIGN IN</button></a>
     </header>
-    <div class="imatge_principal">
-        <img src="imatges/sona_wallpaper.jpg">
+    <div class="carousel">
+        <button id="retroceder">&#60</button>
+        <div id="imagen"></div>
+        <button id="avanzar">&#62</button>
     </div>
     <div class="titol">
         <h2>SEASON 3</h2>
@@ -102,4 +104,54 @@
         </footer>
     </div>
 </body>
+<script>
+    window.onload = function () {
+        
+        const IMAGENES = [
+            '/imatges/sona_wallpaper.jpg',
+            '/imatges/wallpaper_1.jpg',
+            '/imatges/sona_2.jpg',
+            '/imatges/prison.jpg',
+            '/imatges/wp2274476.jpg',
+            '/imatges/436196.jpg',
+            '/imatges/515021.jpg',
+            '/imatges/164654773-prison-break-wallpapers.jpg'
+        ];
+
+        let posicionActual = 0;
+        let botonBack = document.querySelector('#retroceder');
+        let botonNext = document.querySelector('#avanzar');
+        let imagen = document.querySelector('#imagen');
+        let intervalo;
+
+        function pasarFoto() {
+            if(posicionActual >= IMAGENES.length - 1) {
+                posicionActual = 0;
+            } else {
+                posicionActual++;
+            }
+            renderizarImagen();
+        }
+
+        
+        function retrocederFoto() {
+            if(posicionActual <= 0) {
+                posicionActual = IMAGENES.length - 1;
+            } else {
+                posicionActual--;
+            }
+            renderizarImagen();
+        }
+
+        
+        function renderizarImagen () {
+            imagen.style.backgroundImage = `url(${IMAGENES[posicionActual]})`;
+        }
+
+        botonNext.addEventListener('click', pasarFoto);
+        botonBack.addEventListener('click', retrocederFoto);
+        
+        renderizarImagen();
+    } 
+</script>
 </html>
